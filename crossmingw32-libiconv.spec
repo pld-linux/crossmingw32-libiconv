@@ -24,6 +24,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
+%ifarch alpha sparc sparc64 sparcv9
+%define		optflags	-O2
+%endif
+
 %description
 The libiconv library provides an iconv() implementation, for use on
 systems which don't have one, or whose implementation cannot convert
