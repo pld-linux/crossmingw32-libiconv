@@ -1,31 +1,28 @@
 %define		realname		libiconv
-%define		snapshot		2003.02.01-1
 Summary:	Character set conversion library - mingw32 cross version
 Summary(pl):	Biblioteka konwersji zestawów znaków - wersja skro¶na dla mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.8
+Version:	1.9.1
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/mingw/%{realname}-%{version}-%{snapshot}-src.tar.bz2
-# Source0-md5:	3cda71fd0e14d5f5fa4eca85f053eaea
-Patch0:		crossmingw32-libiconv.patch
+Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
+# Source0-md5:	0c99a05e0c3c153bac1c960f78711155
+Patch0:		%{name}.patch
 URL:		http://www.gnu.org/software/libiconv/
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake
+#BuildRequires:	autoconf >= 2.57
+#BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	gtk-doc >= 0.9-4
-BuildRequires:	libtool
-BuildRequires:	rpm-build >= 4.1-8.2
-BuildRoot:	%{tmpdir}/%{realname}-%{version}-root-%(id -u -n)
+#BuildRequires:	libtool
+Requires:	crossmingw32-runtime
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
 
 %define		target			i386-mingw32
 %define		target_platform 	i386-pc-mingw32
-%define		arch			%{_prefix}/%{target}
-%define		gccarch			%{_prefix}/lib/gcc-lib/%{target}
-%define		gcclib			%{_prefix}/lib/gcc-lib/%{target}/%{version}
+%define		_sysprefix		/usr
+%define		_prefix			%{_sysprefix}/%{target}
 
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
@@ -49,39 +46,36 @@ Ten pakiet zawiera wersjê skro¶n± dla mingw32.
 %patch0 -p1
 
 %build
-CC=%{target}-gcc ; export CC
-CXX=%{target}-g++ ; export CXX
-LD=%{target}-ld ; export LD
-AR=%{target}-ar ; export AR
-AS=%{target}-as ; export AS
-CROSS_COMPILE=1 ; export CROSS_COMPILE
-CPPFLAGS="-I%{arch}/include" ; export CPPFLAGS
-
-rm -f missing
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-
 %configure \
+	AR="%{target}-ar" \
+	RANLIB="%{target}-ranlib" \
 	--target=%{target} \
 	--host=%{target_platform} \
-	--prefix=%{arch} \
-	--disable-static \
-	--bindir=%{arch}/bin \
-	--libdir=%{arch}/lib \
-	--includedir=%{arch}/include
+	--disable-static
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%if 0%{!?debug:1}
+%{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_bindir}/*.dll
+%{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}
+%{_bindir}/libcharset-1.dll
+%{_bindir}/libiconv-2.dll
+%{_libdir}/libcharset.dll.a
+%{_libdir}/libcharset.la
+%{_libdir}/libiconv.dll.a
+%{_libdir}/libiconv.la
+%{_libdir}/charset.alias
+%{_includedir}/*.h
