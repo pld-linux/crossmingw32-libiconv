@@ -1,7 +1,7 @@
-
 %define		realname		libiconv
 %define		snapshot		2003.02.01-1
-Summary:	iconv
+Summary:	Character set conversion library - mingw32 cross version
+Summary(pl):	Biblioteka konwersji zestawów znaków - wersja skro¶na dla mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.8
 Release:	1
@@ -13,6 +13,7 @@ Patch0:		crossmingw32-libiconv.patch
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
+BuildRequires:	crossmingw32-gcc
 BuildRequires:	gtk-doc >= 0.9-4
 BuildRequires:	libtool
 BuildRequires:	rpm-build >= 4.1-8.2
@@ -34,8 +35,14 @@ The libiconv library provides an iconv() implementation, for use on
 systems which don't have one, or whose implementation cannot convert
 from/to Unicode.
 
-This package contains the cross version for Win32.
+This package contains the cross version for mingw32.
 
+%description -l pl
+Ta biblioteka dostarcza implementacjê iconv() do u¿ywania z systemami,
+które takiej funkcji nie posiadaj±, lub na których implementacja nie
+potrafi konwertowaæ z/do Unikodu.
+
+Ten pakiet zawiera wersjê skro¶n± dla mingw32.
 
 %prep
 %setup -q -n %{realname}-%{version}
@@ -76,4 +83,5 @@ install -d $RPM_BUILD_ROOT%{_mandir}
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%defattr(644,root,root,755)
 %{arch}
