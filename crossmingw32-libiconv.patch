@@ -1,53 +1,24 @@
-diff -uNr libiconv-1.8/configure.in libiconv-1.8.good/configure.in
---- libiconv-1.8/configure.in	2003-01-31 21:19:00.000000000 +0100
-+++ libiconv-1.8.good/configure.in	2003-08-23 22:49:42.000000000 +0200
-@@ -56,7 +56,6 @@
+--- libiconv-1.9.1/lib/relocatable.c.orig	2003-04-05 12:03:25.000000000 +0200
++++ libiconv-1.9.1/lib/relocatable.c	2003-12-01 21:56:01.319741592 +0100
+@@ -38,6 +38,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <windef.h>
++#include <wtypes.h>
++#include <winbase.h>
  
- dnl           check for host type
+ #ifdef NO_XMALLOC
+ # define xmalloc malloc
+--- libiconv-1.9.1/libcharset/lib/relocatable.c.orig	2003-04-05 12:03:25.000000000 +0200
++++ libiconv-1.9.1/libcharset/lib/relocatable.c	2003-12-01 21:56:24.326244072 +0100
+@@ -38,6 +38,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <windef.h>
++#include <wtypes.h>
++#include <winbase.h>
  
--CL_CANONICAL_HOST(autoconf)
- 
- dnl           checks for UNIX variants that set DEFS
- 
-@@ -82,7 +81,6 @@
- 
- dnl           checks for typedefs
- 
--AC_MBSTATE_T
- 
- dnl           checks for functions and declarations
- 
-@@ -95,7 +93,6 @@
- 
- AC_CHECK_FUNCS(mbrtowc wcrtomb mbsinit setlocale)
- 
--AC_EILSEQ
- 
- CL_WORDS_LITTLEENDIAN
- 
-diff -uNr libiconv-1.8/Makefile.in libiconv-1.8.good/Makefile.in
---- libiconv-1.8/Makefile.in	2003-01-31 21:07:37.000000000 +0100
-+++ libiconv-1.8.good/Makefile.in	2003-08-23 23:35:55.000000000 +0200
-@@ -38,8 +38,8 @@
- # $(libdir) and $(includedir) - don't use $(prefix) and $(exec_prefix) here.
- install-lib : all force
- 	cd lib && $(MAKE) install-lib libdir='$(libdir)' includedir='$(includedir)'
--	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
--	$(INSTALL_DATA) include/iconv.h $(includedir)/iconv.h
-+	if [ ! -d $(DESTDIR)$(includedir) ] ; then mkdir $(DESTDIR)$(includedir) ; fi
-+	$(INSTALL_DATA) $(DESTDIR)/include/iconv.h $(DESTDIR)$(includedir)/iconv.h
- 
- install : force
- 	cd libcharset && $(MAKE) install prefix='$(prefix)' exec_prefix='$(exec_prefix)' libdir='$(libdir)'
-diff -uNr libiconv-1.8/src/Makefile.in libiconv-1.8.good/src/Makefile.in
---- libiconv-1.8/src/Makefile.in	2003-01-31 21:08:08.000000000 +0100
-+++ libiconv-1.8.good/src/Makefile.in	2003-08-23 23:34:22.000000000 +0200
-@@ -78,7 +78,7 @@
- 	if [ ! -d $(DESTDIR)$(bindir) ] ; then mkdir $(DESTDIR)$(bindir) ; fi
- 	case "@host_os@" in \
- 	  hpux*) $(CC) $(LDFLAGS) iconv.@OBJEXT@ -L$(libdir) -liconv @LIBINTL@ -o iconv;; \
--	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) iconv.@OBJEXT@ $(libdir)/libiconv.la @LTLIBINTL@ -o iconv;; \
-+	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) iconv.@OBJEXT@ $(DESTDIR)$(libdir)/libiconv.la @LTLIBINTL@ -o iconv;; \
- 	esac
- 	$(LIBTOOL_INSTALL) $(INSTALL_PROGRAM) iconv $(DESTDIR)$(bindir)/iconv
- 
+ #ifdef NO_XMALLOC
+ # define xmalloc malloc
