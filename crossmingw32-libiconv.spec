@@ -8,9 +8,10 @@ Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/mingw/%{realname}-%{version}-%{snapshot}-src.tar.bz2
+# Source0-md5:	3cda71fd0e14d5f5fa4eca85f053eaea
 Patch0:		crossmingw32-libiconv.patch
 URL:		http://www.gnu.org/software/libiconv/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	gtk-doc >= 0.9-4
 BuildRequires:	libtool
@@ -29,7 +30,12 @@ BuildRoot:	%{tmpdir}/%{realname}-%{version}-root-%(id -u -n)
 %define		__cxx			%{target}-g++
 
 %description
-iconv
+The libiconv library provides an iconv() implementation, for use on
+systems which don't have one, or whose implementation cannot convert
+from/to Unicode.
+
+This package contains the cross version for Win32.
+
 
 %prep
 %setup -q -n %{realname}-%{version}
