@@ -3,13 +3,14 @@ Summary:	Character set conversion library - mingw32 cross version
 Summary(pl):	Biblioteka konwersji zestawów znaków - wersja skro¶na dla mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.9.2
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
 # Source0-md5:	6bc300365053c815b10b800a21e0bc7e
 Patch0:		%{name}.patch
 URL:		http://www.gnu.org/software/libiconv/
+BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
 Requires:	crossmingw32-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,41 +43,54 @@ potrafi konwertowaæ z/do Unikodu.
 
 Ten pakiet zawiera wersjê skro¶n± dla mingw32.
 
+%package dll
+Summary:	%{realname} - DLL library for Windows
+Summary(pl):	%{realname} - biblioteka DLL dla Windows
+Group:		Applications/Emulators
+
+%description dll
+%{realname} - DLL library for Windows.
+
+%description dll -l pl
+%{realname} - biblioteka DLL dla Windows.
+
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
 %build
+cp -f /usr/share/automake/config.sub .
 %configure \
 	AR="%{target}-ar" \
 	RANLIB="%{target}-ranlib" \
-	--target=%{target} \
-	--host=%{target_platform} \
-	--disable-static
+	--target="%{target}" \
+	--host="%{target_platform}" \
+	--enable-static
 
 %{__make}
 
+%if 0%{!?debug:1}
+%{target}-strip {,libcharset/}lib/.libs/*.dll
+%{target}-strip -g -R.comment -R.note {,libcharset/}lib/.libs/*.a
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%if 0%{!?debug:1}
-%{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_bindir}/*.dll
-%{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
-%endif
+install {,libcharset/}lib/.libs/*.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{_bindir}/libcharset-1.dll
-%{_bindir}/libiconv-2.dll
-%{_libdir}/libcharset.dll.a
-%{_libdir}/libcharset.la
-%{_libdir}/libiconv.dll.a
-%{_libdir}/libiconv.la
-%{_libdir}/charset.alias
+%{_libdir}/*
 %{_includedir}/*.h
+
+%files dll
+%defattr(644,root,root,755)
+%{_datadir}/wine/windows/system/*
