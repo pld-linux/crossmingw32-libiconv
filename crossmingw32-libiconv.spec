@@ -59,7 +59,8 @@ Group:		Applications/Emulators
 %patch0 -p1
 
 %build
-cp -f /usr/share/automake/config.sub .
+cp -f /usr/share/automake/config.sub libcharset/autoconf
+cp -f /usr/share/automake/config.sub autoconf
 %configure \
 	AR="%{target}-ar" \
 	RANLIB="%{target}-ranlib" \
