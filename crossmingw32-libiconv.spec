@@ -2,12 +2,12 @@
 Summary:	Character set conversion library - mingw32 cross version
 Summary(pl):	Biblioteka konwersji zestawów znaków - wersja skro¶na dla mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.10
+Version:	1.11
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
-# Source0-md5:	0d621d541e28ff053d8bbcf7215de3a4
+# Source0-md5:	b77a17e4a5a817100ad4b2613935055e
 Patch0:		%{name}.patch
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
