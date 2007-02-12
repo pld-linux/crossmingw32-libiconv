@@ -1,6 +1,6 @@
 %define		realname		libiconv
 Summary:	Character set conversion library - mingw32 cross version
-Summary(pl.UTF-8):   Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
+Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.11
 Release:	1
@@ -47,7 +47,7 @@ Ten pakiet zawiera wersję skrośną dla mingw32.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
