@@ -1,6 +1,6 @@
 %define		realname		libiconv
 Summary:	Character set conversion library - mingw32 cross version
-Summary(pl):	Biblioteka konwersji zestawów znaków - wersja skro¶na dla mingw32
+Summary(pl.UTF-8):   Biblioteka konwersji zestawÃ³w znakÃ³w - wersja skroÅ›na dla mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.11
 Release:	1
@@ -38,22 +38,22 @@ from/to Unicode.
 
 This package contains the cross version for mingw32.
 
-%description -l pl
-Ta biblioteka dostarcza implementacjê iconv() do u¿ywania z systemami,
-które takiej funkcji nie posiadaj±, lub na których implementacja nie
-potrafi konwertowaæ z/do Unikodu.
+%description -l pl.UTF-8
+Ta biblioteka dostarcza implementacjÄ™ iconv() do uÅ¼ywania z systemami,
+ktÃ³re takiej funkcji nie posiadajÄ…, lub na ktÃ³rych implementacja nie
+potrafi konwertowaÄ‡ z/do Unikodu.
 
-Ten pakiet zawiera wersjê skro¶n± dla mingw32.
+Ten pakiet zawiera wersjÄ™ skroÅ›nÄ… dla mingw32.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl):	%{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
 %{realname} - DLL library for Windows.
 
-%description dll -l pl
+%description dll -l pl.UTF-8
 %{realname} - biblioteka DLL dla Windows.
 
 %prep
