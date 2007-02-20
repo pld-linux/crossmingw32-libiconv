@@ -1,12 +1,12 @@
-%define		realname		libiconv
 Summary:	Character set conversion library - mingw32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
-Name:		crossmingw32-%{realname}
+%define		_realname   libiconv
+Name:		crossmingw32-%{_realname}
 Version:	1.11
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
+Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{_realname}-%{version}.tar.gz
 # Source0-md5:	b77a17e4a5a817100ad4b2613935055e
 Patch0:		%{name}.patch
 URL:		http://www.gnu.org/software/libiconv/
@@ -21,9 +21,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
 %define		target_platform 	i386-pc-mingw32
+%define		arch			%{_prefix}/%{target}
+%define		gccarch			%{_prefix}/lib/gcc-lib/%{target}
+%define		gcclib			%{_prefix}/lib/gcc-lib/%{target}/%{version}
+
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
-
+%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
@@ -46,18 +50,18 @@ potrafi konwertować z/do Unikodu.
 Ten pakiet zawiera wersję skrośną dla mingw32.
 
 %package dll
-Summary:	%{realname} - DLL library for Windows
-Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
+Summary:	%{_relaname} - DLL library for Windows
+Summary(pl.UTF-8):	%{_relaname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
-%{realname} - DLL library for Windows.
+%{_realname} - DLL library for Windows.
 
 %description dll -l pl.UTF-8
-%{realname} - biblioteka DLL dla Windows.
+%{_realname} - biblioteka DLL dla Windows.
 
 %prep
-%setup -q -n %{realname}-%{version}
+%setup -q -n %{_realname}-%{version}
 %patch0 -p1
 
 %build
@@ -96,4 +100,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files dll
 %defattr(644,root,root,755)
+%{_bindir}/lib*.dll
 %{_datadir}/wine/windows/system/*
