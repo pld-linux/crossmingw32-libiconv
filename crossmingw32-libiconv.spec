@@ -68,10 +68,8 @@ Group:		Applications/Emulators
 cp -f /usr/share/automake/config.sub libcharset/autoconf
 cp -f /usr/share/automake/config.sub autoconf
 %configure \
-	AR="%{target}-ar" \
-	RANLIB="%{target}-ranlib" \
 	--target="%{target}" \
-	--host="%{target_platform}" \
+	--host="%{target}" \
 	--enable-static
 
 %{__make}
