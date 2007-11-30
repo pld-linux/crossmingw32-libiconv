@@ -1,14 +1,13 @@
 Summary:	Character set conversion library - mingw32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
-%define		_realname   libiconv
-Name:		crossmingw32-%{_realname}
-Version:	1.11
+%define		realname   libiconv
+Name:		crossmingw32-%{realname}
+Version:	1.12
 Release:	1
-License:	LGPL
+License:	LGPL v2+
 Group:		Development/Libraries
-Source0:	ftp://ftp.gnu.org/gnu/libiconv/%{_realname}-%{version}.tar.gz
-# Source0-md5:	b77a17e4a5a817100ad4b2613935055e
-Patch0:		%{name}.patch
+Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
+# Source0-md5:	c2be282595751535a618ae0edeb8f648
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
@@ -21,16 +20,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
 %define		target_platform 	i386-pc-mingw32
-%define		arch			%{_prefix}/%{target}
 
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
-%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
-%ifnarch alpha sparc sparc64 sparcv9
+%ifnarch %{ix86}
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
 
@@ -73,12 +71,11 @@ DLL iconv libraries for Windows.
 Biblioteki DLL iconv dla Windows.
 
 %prep
-%setup -q -n %{_realname}-%{version}
-%patch0 -p1
+%setup -q -n %{realname}-%{version}
 
 %build
-cp -f /usr/share/automake/config.sub libcharset/autoconf
-cp -f /usr/share/automake/config.sub autoconf
+cp -f /usr/share/automake/config.sub libcharset/build-aux
+cp -f /usr/share/automake/config.sub build-aux
 %configure \
 	--target="%{target}" \
 	--host="%{target}" \
