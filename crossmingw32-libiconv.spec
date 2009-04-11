@@ -2,12 +2,12 @@ Summary:	Character set conversion library - mingw32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
-Version:	1.12
+Version:	1.13
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
-# Source0-md5:	c2be282595751535a618ae0edeb8f648
+# Source0-md5:	048032a3032ebd182150bdee30a5d533
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
@@ -32,6 +32,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
+# -z options are invalid for mingw linker
+%define		filterout_ld	-Wl,-z,.*
 
 %description
 The libiconv library provides an iconv() implementation, for use on
