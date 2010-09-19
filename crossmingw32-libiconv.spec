@@ -1,5 +1,5 @@
-Summary:	Character set conversion library - mingw32 cross version
-Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla mingw32
+Summary:	Character set conversion library - MinGW32 cross version
+Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla MinGW32
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
 Version:	1.13.1
@@ -40,26 +40,26 @@ The libiconv library provides an iconv() implementation, for use on
 systems which don't have one, or whose implementation cannot convert
 from/to Unicode.
 
-This package contains the cross version for mingw32.
+This package contains the cross version for MinGW32.
 
 %description -l pl.UTF-8
 Ta biblioteka dostarcza implementację iconv() do używania z systemami,
 które takiej funkcji nie posiadają, lub na których implementacja nie
 potrafi konwertować z/do Unikodu.
 
-Ten pakiet zawiera wersję skrośną dla mingw32.
+Ten pakiet zawiera wersję skrośną dla MinGW32.
 
 %package static
-Summary:	Static iconv libraries (cross mingw32 version)
-Summary(pl.UTF-8):	Statyczne biblioteki iconv (wersja skrośna mingw32)
+Summary:	Static iconv libraries (cross MinGW32 version)
+Summary(pl.UTF-8):	Statyczne biblioteki iconv (wersja skrośna MinGW32)
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description static
-Static iconv libraries (cross mingw32 version).
+Static iconv libraries (cross MinGW32 version).
 
 %description static -l pl.UTF-8
-Statyczne biblioteki iconv (wersja skrośna mingw32).
+Statyczne biblioteki iconv (wersja skrośna MinGW32).
 
 %package dll
 Summary:	DLL iconv libraries for Windows
