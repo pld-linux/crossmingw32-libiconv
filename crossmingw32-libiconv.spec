@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla 
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
 Version:	1.13.1
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
@@ -27,8 +27,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
-%define		filterout_ld	-Wl,-z,.*
-%define		filterout	-gdwarf-3
 
 %ifnarch %{ix86}
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
