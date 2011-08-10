@@ -2,12 +2,12 @@ Summary:	Character set conversion library - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla MinGW32
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
-Version:	1.13.1
-Release:	2
-License:	LGPL v2+
+Version:	1.14
+Release:	1
+License:	LGPL v3+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
-# Source0-md5:	7ab33ebd26687c744a37264a330bbe9a
+# Source0-md5:	e34509b1623cec449dfeb73d7ce9c6c6
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
