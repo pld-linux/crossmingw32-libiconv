@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla 
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
 Version:	1.14
-Release:	2
+Release:	3
 License:	LGPL v3+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
@@ -19,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		no_install_post_strip	1
 
 %define		target			i386-mingw32
-%define		target_platform 	i386-pc-mingw32
+%define		target_platform		i386-pc-mingw32
 
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
@@ -34,6 +34,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %endif
 # -z options are invalid for mingw linker
 %define		filterout_ld	-Wl,-z,.*
+%define		filterout_c	-f[-a-z0-9=]*
+%define		filterout_cxx	-f[-a-z0-9=]*
 
 %description
 The libiconv library provides an iconv() implementation, for use on
