@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla 
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
 Version:	1.14
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
