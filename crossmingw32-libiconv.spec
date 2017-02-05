@@ -2,12 +2,12 @@ Summary:	Character set conversion library - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla MinGW32
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
-Version:	1.14
-Release:	3
+Version:	1.15
+Release:	1
 License:	LGPL v3+
 Group:		Development/Libraries
 Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
-# Source0-md5:	e34509b1623cec449dfeb73d7ce9c6c6
+# Source0-md5:	ace8b5f2db42f7b3b3057585e80d9808
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
@@ -103,12 +103,10 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %endif
 
 # not used on win32
-rm -f $RPM_BUILD_ROOT%{_libdir}/charset.alias
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/charset.alias
 # runtime only
-rm -f $RPM_BUILD_ROOT%{_bindir}/iconv
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-
-rm -rf $RPM_BUILD_ROOT%{_datadir}/{doc,man}
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/iconv.exe
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{doc,locale,man}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
