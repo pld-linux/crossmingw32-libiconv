@@ -1,0 +1,10 @@
+--- libiconv-1.16/srclib/strerror-override.c.orig	2019-01-06 09:51:41.000000000 +0100
++++ libiconv-1.16/srclib/strerror-override.c	2019-04-27 18:10:42.939685001 +0200
+@@ -25,6 +25,7 @@
+ 
+ #if GNULIB_defined_EWINSOCK /* native Windows platforms */
+ # if HAVE_WINSOCK2_H
++#  include <winerror.h>
+ #  include <winsock2.h>
+ # endif
+ #endif

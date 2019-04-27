@@ -2,12 +2,13 @@ Summary:	Character set conversion library - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka konwersji zestawów znaków - wersja skrośna dla MinGW32
 %define		realname   libiconv
 Name:		crossmingw32-%{realname}
-Version:	1.15
+Version:	1.16
 Release:	1
 License:	LGPL v3+
 Group:		Development/Libraries
-Source0:	http://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
-# Source0-md5:	ace8b5f2db42f7b3b3057585e80d9808
+Source0:	https://ftp.gnu.org/gnu/libiconv/%{realname}-%{version}.tar.gz
+# Source0-md5:	7d2a800b952942bb2880efb00cfd524c
+Patch0:		%{realname}-win32.patch
 URL:		http://www.gnu.org/software/libiconv/
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
@@ -77,6 +78,7 @@ Biblioteki DLL iconv dla Windows.
 
 %prep
 %setup -q -n %{realname}-%{version}
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub libcharset/build-aux
@@ -95,15 +97,13 @@ install -d $RPM_BUILD_ROOT%{_dlldir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
 %if 0%{!?debug:1}
 %{target}-strip -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-# not used on win32
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/charset.alias
 # runtime only
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/iconv.exe
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{doc,locale,man}
